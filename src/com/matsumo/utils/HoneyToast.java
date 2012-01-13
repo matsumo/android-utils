@@ -44,7 +44,9 @@ import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -84,7 +86,6 @@ public class HoneyToast {
 
 	private Toast toast;
 	private static Drawable iconCache;
-	private static final int ICON_SIZE = 48;
 	private static final int ICON_PADDING = 4;
 
 	/**
@@ -323,22 +324,25 @@ public class HoneyToast {
 					context.getPackageName(), 0);
 			icon = pm.getApplicationIcon(applicationinfo);
 			if (icon != null)
-				icon = resizeIcon(icon);
+				icon = resizeIcon(context, icon);
 			iconCache = icon;
 		} catch (NameNotFoundException e) {
 		}
 		return icon;
 	}
 
-	private static Drawable resizeIcon(Drawable icon) {
+	private static Drawable resizeIcon(Context context, Drawable icon) {
+		WindowManager windowmanager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+		Display disp = windowmanager.getDefaultDisplay();
+		int w = (int)(28 * Math.min(disp.getWidth(), disp.getHeight()) / 320f);
 		Bitmap.Config c = (icon.getOpacity() != PixelFormat.OPAQUE) ? Bitmap.Config.ARGB_8888
 				: Bitmap.Config.RGB_565;
-		Bitmap thumb = Bitmap.createBitmap(ICON_SIZE, ICON_SIZE, c);
+		Bitmap thumb = Bitmap.createBitmap(w, w, c);
 		Canvas canvas = new Canvas(thumb);
 		canvas.setDrawFilter(new PaintFlagsDrawFilter(Paint.DITHER_FLAG, 0));
 		Rect oldBounds = new Rect();
 		oldBounds.set(icon.getBounds());
-		icon.setBounds(0, 0, ICON_SIZE, ICON_SIZE);
+		icon.setBounds(0, 0, w, w);
 		icon.draw(canvas);
 		icon.setBounds(oldBounds);
 		icon = new BitmapDrawable(thumb);
