@@ -290,6 +290,17 @@ public class HoneyToast {
 				duration);
 	}
 
+	public static void makeTextAndShow(Context context, int resId, int duration)
+			throws Resources.NotFoundException {
+		makeText(context, context.getResources().getText(resId), duration)
+				.show();
+	}
+
+	public static void makeTextAndShow(Context context, CharSequence text,
+			int duration) throws Resources.NotFoundException {
+		makeText(context, text, duration).show();
+	}
+
 	/**
 	 * Update the text in a Toast that was previously created using one of the
 	 * makeText() methods.
@@ -332,9 +343,10 @@ public class HoneyToast {
 	}
 
 	private static Drawable resizeIcon(Context context, Drawable icon) {
-		WindowManager windowmanager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+		WindowManager windowmanager = (WindowManager) context
+				.getSystemService(Context.WINDOW_SERVICE);
 		Display disp = windowmanager.getDefaultDisplay();
-		int w = (int)(28 * Math.min(disp.getWidth(), disp.getHeight()) / 320f);
+		int w = (int) (28 * Math.min(disp.getWidth(), disp.getHeight()) / 320f);
 		Bitmap.Config c = (icon.getOpacity() != PixelFormat.OPAQUE) ? Bitmap.Config.ARGB_8888
 				: Bitmap.Config.RGB_565;
 		Bitmap thumb = Bitmap.createBitmap(w, w, c);

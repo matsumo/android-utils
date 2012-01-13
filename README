@@ -1,10 +1,11 @@
 Android開発の際に便利な俺得ライブラリ。
 ライブラリごと使うもよし、クラス単位で使うもよし、気に食わぬところを好きに改造するもよし。
 
-HoneyToast
+■ HoneyToast
 ToastってServiceとか、Widgetから出すと、どのアプリが出してるのかよく分かんねーよ。
 というわけで、Toastのtextの左側にアプリアイコンを表示するようにしてみた。
 使い方は、Toastの代わりにHoneyToastを使うだけ。
+あとは、show()をよく忘れる人のために、makeTextAndShow()も用意したよ！
 
 
 。。。他にも追加予定
