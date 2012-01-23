@@ -30,7 +30,7 @@ public class ExLog {
 	public static boolean useSD = /*true*/false;
 	public static String logFilename = "debug.txt";
 
-	private static String log_filename = Environment.getExternalStorageDirectory().getPath() + "/" + logFilename;
+	private static String log_filename = Environment.getExternalStorageDirectory().getPath() + "/";
 
 	public static void d(String tag, String message){
 		if(useLog) android.util.Log.d(tag, message);
@@ -61,7 +61,7 @@ public class ExLog {
 	static private void write_log(String str){
 		if(!useSD || str == null) return;
 		try{
-			File file = new File(log_filename);
+			File file = new File(log_filename + logFilename);
 			OutputStream os = new FileOutputStream(file, true);
 			os.write(("---"+new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(Calendar.getInstance().getTime())+"\n").getBytes());
 			os.write((str+"\n").getBytes());
