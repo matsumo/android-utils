@@ -45,6 +45,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -258,6 +259,7 @@ public class HoneyToast {
 		if (d != null) {
 			LinearLayout v = (LinearLayout) toast.getView();
 			v.setOrientation(LinearLayout.HORIZONTAL);
+			v.setGravity(Gravity.CENTER_VERTICAL);
 			ImageView i = new ImageView(context);
 			i.setImageDrawable(d);
 			i.setPadding(0, 0, ICON_PADDING, 0);
